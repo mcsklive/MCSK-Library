@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ | MCSK Library ✨</title>
+    <meta name="theme-color" content="#1e3c72">
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body class="dashboard-body">
+    <div class="shape shape-5"></div><div class="shape shape-1"></div>
+    <div id="toast-container" class="toast-container"></div>
+    
+    <div class="dashboard-wrapper">
+        <aside class="sidebar glass-panel" id="sidebar">
+            <div class="nav-header">
+                <div class="nav-logo">MCSK Library ✨</div>
+                <button class="close-menu-btn" onclick="toggleMobileMenu()">✖</button>
+            </div>
+            <nav class="side-nav">
+                <a href="dashboard.html" class="nav-item" data-i18n="menu-dash">📊 แดชบอร์ดวิเคราะห์</a>
+                <a href="projects.html" class="nav-item" data-i18n="menu-proj">📁 ข้อมูลโปรเจกต์</a>
+                <a href="team.html" class="nav-item" data-i18n="menu-team">👥 จัดการทีมงาน</a>
+                <a href="admin.html" class="nav-item active" data-i18n="menu-admin">🛡️ ตั้งค่าผู้ดูแลระบบ</a>
+                <div class="nav-divider"></div>
+                <a href="#" onclick="logout()" class="nav-item logout-link" data-i18n="menu-logout">🚪 ออกจากระบบ</a>
+            </nav>
+        </aside>
+
+        <main class="content-area">
+            <header class="top-bar glass-panel">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                    <div class="user-info">
+                        <h2 data-i18n="admin-header">การตั้งค่าสภาพแวดล้อม (Settings)</h2>
+                        <p data-i18n="admin-sub">Business Analyst Configuration</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="lang-btn" onclick="toggleLanguage()">TH</button>
+                    <button class="theme-btn theme-toggle-dash">🌙</button>
+                </div>
+            </header>
+
+            <section class="glass-panel admin-settings">
+                <h3 class="section-title" data-i18n="admin-section">อุปกรณ์และระบบปฏิบัติการหลัก (Environment Specs)</h3>
+                
+                <div class="input-group">
+                    <label data-i18n="os-label">อุปกรณ์ที่ใช้ซิงก์ข้อมูลหลัก (Primary OS)</label>
+                    <select class="custom-select" id="os-select">
+                        <option value="win11">Windows 11 Dev Channel</option>
+                        <option value="macOS">macOS (Mac mini Optimization)</option>
+                        <option value="ios">iOS (iPhone PiP Mode)</option>
+                    </select>
+                </div>
+
+                <div class="input-group mt-15">
+                    <label data-i18n="access-label">ระดับการเข้าถึงข้อมูล (Access Level)</label>
+                    <input type="text" value="Business Analyst (Full Access)" disabled class="disabled-input">
+                </div>
+
+                <button class="btn btn-save" data-i18n="btn-save" onclick="saveAdminSettings()">💾 บันทึกการเปลี่ยนแปลง</button>
+            </section>
+
+            <section class="glass-panel admin-settings mt-15" id="user-management-section" style="display: none;">
+                <h3 class="section-title" data-i18n="admin-users">จัดการสมาชิก (User Management)</h3>
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="th-name">ชื่อ-นามสกุล</th>
+                                <th data-i18n="th-email">อีเมล</th>
+                                <th data-i18n="th-role">บทบาท</th>
+                                <th data-i18n="th-status">สถานะ</th>
+                                <th data-i18n="th-action">จัดการ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-user-table-body">
+                            </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

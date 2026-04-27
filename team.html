@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ | MCSK Library ✨</title>
+    <meta name="theme-color" content="#1e3c72">
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body class="dashboard-body">
+    <div class="shape shape-1"></div><div class="shape shape-3"></div>
+    <div id="toast-container" class="toast-container"></div>
+    
+    <div class="dashboard-wrapper">
+        <aside class="sidebar glass-panel" id="sidebar">
+            <div class="nav-header">
+                <div class="nav-logo">MCSK Library ✨</div>
+                <button class="close-menu-btn" onclick="toggleMobileMenu()">✖</button>
+            </div>
+            <nav class="side-nav">
+                <a href="dashboard.html" class="nav-item" data-i18n="menu-dash">📊 แดชบอร์ดวิเคราะห์</a>
+                <a href="projects.html" class="nav-item" data-i18n="menu-proj">📁 ข้อมูลโปรเจกต์</a>
+                <a href="team.html" class="nav-item active" data-i18n="menu-team">👥 จัดการทีมงาน</a>
+                <a href="admin.html" class="nav-item" data-i18n="menu-admin">🛡️ ตั้งค่าผู้ดูแลระบบ</a>
+                <a href="relax.html" class="nav-item" data-i18n="menu-relax">☕ มุมพักผ่อน</a>
+                <div class="nav-divider"></div>
+                <a href="#" onclick="logout()" class="nav-item logout-link" data-i18n="menu-logout">🚪 ออกจากระบบ</a>
+            </nav>
+        </aside>
+
+        <main class="content-area">
+            <header class="top-bar glass-panel">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                    <div class="user-info">
+                        <h2 data-i18n="team-header">ประสิทธิภาพทีม (Team Performance)</h2>
+                        <p data-i18n="team-sub">ติดตามผลการประเมินและการประสานงาน</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="lang-btn" onclick="toggleLanguage()">TH</button>
+                    <button class="theme-btn theme-toggle-dash">🌙</button>
+                </div>
+            </header>
+
+            <div class="team-grid">
+                <div class="stat-card glass-panel flex-card">
+                    <div class="card-content">
+                        <h3 class="flex-title text-info"><span data-i18n="team-jnr-title">🌱 น้องใหม่ (Junior Staff)</span></h3>
+                        <p class="status-text" data-i18n="team-jnr-status">สถานะ: กำลังเรียนรู้งาน (Training)</p>
+                        <p class="desc-text" data-i18n="team-jnr-desc">Customer Support Etiquette และประสานงานเบื้องต้น</p>
+                        <div class="progress-container">
+                            <div class="progress-label"><span data-i18n="team-jnr-prog">อัตราความสำเร็จงาน</span><span>65%</span></div>
+                            <div class="progress-bar"><div class="progress-fill fill-warning" style="width: 65%;"></div></div>
+                        </div>
+                    </div>
+                    <button class="btn small-btn mt-15" data-i18n="btn-eval" onclick="showToast('กำลังเรียกข้อมูลผลประเมิน...', 'info')">📄 ดูผลประเมิน</button>
+                </div>
+
+                <div class="stat-card glass-panel flex-card">
+                    <div class="card-content">
+                        <h3 class="flex-title text-success"><span data-i18n="team-snr-title">⭐ พี่เก่า (Senior Colleague)</span></h3>
+                        <p class="status-text" data-i18n="team-snr-status">สถานะ: ปฏิบัติงาน (Active)</p>
+                        <p class="desc-text" data-i18n="team-snr-desc">ดูแลโครงสร้างระบบและตัดสินใจเคสระดับสูง</p>
+                        <div class="progress-container">
+                            <div class="progress-label"><span data-i18n="team-snr-prog">ความเร็วในการปิดเคส</span><span>92%</span></div>
+                            <div class="progress-bar"><div class="progress-fill fill-success" style="width: 92%;"></div></div>
+                        </div>
+                    </div>
+                    <button class="btn small-btn btn-outline-success mt-15" data-i18n="btn-assign" onclick="showToast('มอบหมายงานพิเศษเรียบร้อย', 'success')">🎯 มอบหมายงานพิเศษ</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

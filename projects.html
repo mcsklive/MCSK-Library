@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ | MCSK Library ✨</title>
+    <meta name="theme-color" content="#1e3c72">
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body class="dashboard-body">
+    <div class="shape shape-4"></div><div class="shape shape-5"></div>
+    <div id="toast-container" class="toast-container"></div>
+    
+    <div id="task-modal" class="modal-overlay">
+        <div class="modal-content glass-panel">
+            <h3 data-i18n="modal-title">✨ เพิ่มงานใหม่</h3>
+            <div class="input-group">
+                <label data-i18n="modal-task-name">ชื่องาน</label>
+                <input type="text" id="task-title-input" placeholder="ระบุชื่องาน...">
+            </div>
+            <div class="input-group">
+                <label data-i18n="modal-tag">ประเภทงาน (Tag)</label>
+                <select id="task-tag-input" class="custom-select">
+                    <option value="Data Analysis|badge-warning">Data Analysis</option>
+                    <option value="Python Scripting|badge-info">Python Scripting</option>
+                    <option value="Google Sheets|badge-success">Google Sheets</option>
+                    <option value="Customer Support|badge-warning">Customer Support</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label data-i18n="modal-assignee">ผู้รับผิดชอบ</label>
+                <select id="task-assign-input" class="custom-select">
+                    <option value="ME">ฉันเอง (Me)</option>
+                    <option value="NM">NONG-MAI01</option>
+                    <option value="NK">NONG-KAO02</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label data-i18n="modal-date">วันที่กำหนดส่ง</label>
+                <input type="date" id="task-date-input">
+            </div>
+            <div class="modal-actions">
+                <button class="btn small-btn btn-outline" onclick="closeTaskModal()" data-i18n="btn-cancel">ยกเลิก</button>
+                <button class="btn small-btn" onclick="saveNewTask()" data-i18n="btn-confirm">บันทึกงาน</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-wrapper">
+        <aside class="sidebar glass-panel" id="sidebar">
+            <div class="nav-header">
+                <div class="nav-logo">MCSK Library ✨</div>
+                <button class="close-menu-btn" onclick="toggleMobileMenu()">✖</button>
+            </div>
+            <nav class="side-nav">
+                <a href="dashboard.html" class="nav-item" data-i18n="menu-dash">📊 แดชบอร์ดวิเคราะห์</a>
+                <a href="projects.html" class="nav-item active" data-i18n="menu-proj">📁 ข้อมูลโปรเจกต์</a>
+                <a href="team.html" class="nav-item" data-i18n="menu-team">👥 จัดการทีมงาน</a>
+                <a href="admin.html" class="nav-item" data-i18n="menu-admin">🛡️ ตั้งค่าผู้ดูแลระบบ</a>
+                <a href="relax.html" class="nav-item" data-i18n="menu-relax">☕ มุมพักผ่อน</a>
+                <div class="nav-divider"></div>
+                <a href="#" onclick="logout()" class="nav-item logout-link" data-i18n="menu-logout">🚪 ออกจากระบบ</a>
+            </nav>
+        </aside>
+
+        <main class="content-area">
+            <header class="top-bar glass-panel">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                    <div class="user-info">
+                        <h2 data-i18n="proj-header">กระดานงาน (Kanban Board)</h2>
+                        <p data-i18n="proj-sub">ลากและวางการ์ดเพื่ออัปเดตสถานะโปรเจกต์</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="search-input" onkeyup="filterKanban()" placeholder="ค้นหางาน..." data-i18n-placeholder="search-placeholder">
+                    </div>
+                    <button class="lang-btn" onclick="toggleLanguage()">TH</button>
+                    <button class="theme-btn theme-toggle-dash">🌙</button>
+                </div>
+            </header>
+
+            <div class="filter-bar">
+                <button class="filter-pill active" onclick="setFilter('all', this)" data-i18n="filter-all">งานทั้งหมด</button>
+                <button class="filter-pill" onclick="setFilter('ME', this)" data-i18n="filter-mine">งานของฉัน</button>
+            </div>
+
+            <section class="kanban-board glass-panel">
+                <div class="kanban-column" id="todo" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <div class="column-header"><span data-i18n="kb-todo">📌 รอดำเนินการ (To Do)</span> <span class="task-count" id="count-todo">0</span></div>
+                    <div class="task-list" id="list-todo"></div>
+                    <button class="add-task-btn" onclick="openTaskModal('todo')" data-i18n="kb-add">➕ เพิ่มงานใหม่</button>
+                </div>
+
+                <div class="kanban-column" id="inprogress" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <div class="column-header"><span data-i18n="kb-inprog">⏳ กำลังทำ (In Progress)</span> <span class="task-count" id="count-inprogress">0</span></div>
+                    <div class="task-list" id="list-inprogress"></div>
+                </div>
+
+                <div class="kanban-column" id="done" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <div class="column-header"><span data-i18n="kb-done">✅ เสร็จสิ้น (Completed)</span> <span class="task-count" id="count-done">0</span></div>
+                    <div class="task-list" id="list-done"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

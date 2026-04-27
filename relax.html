@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ | MCSK Library ✨</title>
+    <meta name="theme-color" content="#1e3c72">
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body class="dashboard-body relax-mode">
+    <div class="shape shape-1"></div><div class="shape shape-2"></div><div class="shape shape-6"></div>
+    <div id="toast-container" class="toast-container"></div>
+    
+    <div class="dashboard-wrapper">
+        <aside class="sidebar glass-panel" id="sidebar">
+            <div class="nav-header">
+                <div class="nav-logo">MCSK Library ✨</div>
+                <button class="close-menu-btn" onclick="toggleMobileMenu()">✖</button>
+            </div>
+            <nav class="side-nav">
+                <a href="dashboard.html" class="nav-item" data-i18n="menu-dash">📊 แดชบอร์ดวิเคราะห์</a>
+                <a href="projects.html" class="nav-item" data-i18n="menu-proj">📁 ข้อมูลโปรเจกต์</a>
+                <a href="team.html" class="nav-item" data-i18n="menu-team">👥 จัดการทีมงาน</a>
+                <a href="admin.html" class="nav-item" data-i18n="menu-admin">🛡️ ตั้งค่าผู้ดูแลระบบ</a>
+                <a href="relax.html" class="nav-item active" data-i18n="menu-relax">☕ มุมพักผ่อน</a>
+                <div class="nav-divider"></div>
+                <a href="#" onclick="logout()" class="nav-item logout-link" data-i18n="menu-logout">🚪 ออกจากระบบ</a>
+            </nav>
+        </aside>
+
+        <main class="content-area">
+            <header class="top-bar glass-panel">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                    <div class="user-info">
+                        <h2 data-i18n="relax-header">มุมพักผ่อน (Relaxation Corner) 🍃</h2>
+                        <p data-i18n="relax-sub">พักสายตา ฟังเพลงสบายๆ และสูดลมหายใจลึกๆ</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="lang-btn" onclick="toggleLanguage()">TH</button>
+                    <button class="theme-btn theme-toggle-dash">🌙</button>
+                </div>
+            </header>
+
+            <div class="relax-grid">
+                <div class="stat-card glass-panel relax-card">
+                    <h3 class="section-title" data-i18n="relax-music">🎵 Music Preview (ค้นหาเพลง)</h3>
+                    <p style="margin-bottom: 20px; font-size: 14px; color: var(--text-sub);">
+                        พิมพ์ชื่อเพลงหรือศิลปิน แล้วกด Enter เพื่อค้นหาและฟังพรีวิว
+                    </p>
+                    
+                    <div class="music-player-app">
+                        <div class="search-box" style="width: 100%; margin-bottom: 15px;">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="music-search-input" placeholder="ค้นหาเพลง, ศิลปิน... (กด Enter)" style="width: 100%; padding-left: 35px;" onkeyup="searchMusic(event)">
+                        </div>
+                        
+                        <div class="music-results" id="music-results-container">
+                            <div class="empty-state" style="padding: 20px;">
+                                <span>🎧</span> ค้นหาเพลงเพื่อเริ่มฟัง
+                            </div>
+                        </div>
+
+                        <div class="audio-player-panel" id="audio-player-container" style="display: none;">
+                            <img id="now-playing-img" src="" alt="cover">
+                            <div class="now-playing-info">
+                                <h4 id="now-playing-title">Title</h4>
+                                <p id="now-playing-artist">Artist</p>
+                            </div>
+                            <audio id="audio-preview" controls controlsList="nodownload"></audio>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card glass-panel relax-card flex-center">
+                    <h3 class="section-title text-center" data-i18n="relax-breathe">🌬️ 4-7-8 Breathing</h3>
+                    <div class="breathe-container mt-15">
+                        <div class="breathe-circle">
+                            <span id="breathe-text" data-i18n="breathe-ready">พร้อมแล้วกดเริ่มเลย</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline mt-15" style="max-width: 200px;" onclick="startBreathing()" id="breathe-btn" data-i18n="btn-start-breathe">▶ เริ่มทำสมาธิ</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

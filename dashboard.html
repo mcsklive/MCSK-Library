@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เข้าสู่ระบบ | MCSK Library ✨</title>
+    <meta name="theme-color" content="#1e3c72">
+    <link rel="stylesheet" href="style.css">
+    
+    <script>
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</head>
+<body class="dashboard-body">
+    <div class="shape shape-4"></div><div class="shape shape-5"></div><div class="shape shape-6"></div>
+    <div id="toast-container" class="toast-container"></div>
+    
+    <div class="dashboard-wrapper">
+        <aside class="sidebar glass-panel" id="sidebar">
+            <div class="nav-header">
+                <div class="nav-logo">MCSK Library ✨</div>
+                <button class="close-menu-btn" onclick="toggleMobileMenu()">✖</button>
+            </div>
+            <nav class="side-nav">
+                <a href="dashboard.html" class="nav-item active" data-i18n="menu-dash">📊 แดชบอร์ดวิเคราะห์</a>
+                <a href="projects.html" class="nav-item" data-i18n="menu-proj">📁 ข้อมูลโปรเจกต์</a>
+                <a href="team.html" class="nav-item" data-i18n="menu-team">👥 จัดการทีมงาน</a>
+                <a href="admin.html" class="nav-item" data-i18n="menu-admin">🛡️ ตั้งค่าผู้ดูแลระบบ</a>
+                <a href="relax.html" class="nav-item" data-i18n="menu-relax">☕ มุมพักผ่อน</a>
+                <div class="nav-divider"></div>
+                <a href="#" onclick="logout()" class="nav-item logout-link" data-i18n="menu-logout">🚪 ออกจากระบบ</a>
+            </nav>
+        </aside>
+
+        <main class="content-area">
+            <header class="top-bar glass-panel">
+                <div class="header-left">
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+                    <div class="user-info">
+                        <h2 id="welcome-user">ยินดีต้อนรับกลับมา! 🎉</h2>
+                        <p>Business Analyst Dashboard</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="lang-btn" onclick="toggleLanguage()">TH</button>
+                    <button id="theme-toggle-dash" class="theme-btn">🌙</button>
+                </div>
+            </header>
+
+            <section class="stats-grid">
+                <div class="stat-card glass-panel skeleton-loading" id="chart-card">
+                    <h3 data-i18n="dash-chart-title">สถิติการประสานงานรายเดือน</h3>
+                    <div class="chart-container">
+                        <canvas id="mainChart"></canvas>
+                    </div>
+                </div>
+                <div class="stat-card glass-panel activity-log skeleton-loading" id="log-card">
+                    <h3 data-i18n="dash-log-title">กิจกรรมล่าสุด</h3>
+                    <ul class="log-list" id="log-list"></ul>
+                </div>
+            </section>
+
+            <section class="data-table-container glass-panel">
+                <div class="table-header">
+                    <h3 data-i18n="dash-table-title">รายชื่อพนักงานในทีม (Team Directory)</h3>
+                    <button class="btn small-btn" onclick="exportToCSV()">📥 Export CSV</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="custom-table">
+                        <thead>
+                            <tr>
+                                <th data-i18n="th-id">รหัสพนักงาน</th>
+                                <th data-i18n="th-role">บทบาท (Role)</th>
+                                <th data-i18n="th-task">หน้าที่หลัก</th>
+                                <th data-i18n="th-status">สถานะ</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data-table-body"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
